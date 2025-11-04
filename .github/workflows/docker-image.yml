@@ -17,6 +17,9 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Install package
       run: pip install -r requirements.txt
+    - name: Run migrations
+      run: python manage.py migrate
+
     - name: Test the code
       run: python manage.py test
     
