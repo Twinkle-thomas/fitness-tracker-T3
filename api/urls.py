@@ -1,7 +1,7 @@
 
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import RegisterView, LogoutView
+from .views import RegisterView, LogoutView, ActivityDetailView
 from .views import ActivityCreateView, ActivityListView
 
 urlpatterns = [
@@ -10,7 +10,7 @@ urlpatterns = [
     path('auth/logout/', LogoutView.as_view(), name='logout'),
     # ✅ Refresh token endpoint
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-path('activities/', ActivityListView.as_view(), name='activity-list'),
+    path('activities/', ActivityListView.as_view(), name='activity-list'),
     path('activities/create/', ActivityCreateView.as_view(), name='activity-create'),
-
+    path('activities/<int:pk>/', ActivityDetailView.as_view(), name='activity-detail'),
 ]
