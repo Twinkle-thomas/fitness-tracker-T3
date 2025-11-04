@@ -52,3 +52,9 @@ class ActivityListView(generics.ListAPIView):
     def get_queryset(self):
         return Activity.objects.filter(user=self.request.user).order_by('-date')
 
+class ActivityDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ActivitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Activity.objects.filter(user=self.request.user)
