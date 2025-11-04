@@ -58,3 +58,18 @@ class ActivityDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Activity.objects.filter(user=self.request.user)
+        # Custom message for update
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({"detail": "Activity updated successfully!"}, status=status.HTTP_200_OK)
+
+        # Custom message for delete
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"detail": "Activity deleted successfully!"}, status=status.HTTP_200_OK)
